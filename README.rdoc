@@ -1,0 +1,24 @@
+= Nice Select
+
+Allow to have a select tag with an option labeled 'other', when the user select the 'other' option, a javascript popup is prompted and allow the user to add dynamicaly a new option to the list.
+
+Tested with {Prototype}[http://www.prototypejs.org] 1.6.1
+
+== Example of use
+
+  <select id="mySelect">
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+      <option value="---">Add other</option>
+  </select>
+  
+  <script type="text/javascript" charset="utf-8">
+      new NiceSelect('mySelect', '---');
+  </script>
+
+== Credits
+
+Author {Denis Jacquemin}[http://github.com/denisjacquemin].
+
+Copyright (c) 2009 Denis Jacquemin, released under the MIT license
