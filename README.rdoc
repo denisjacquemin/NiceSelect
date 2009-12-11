@@ -14,11 +14,14 @@ Tested with {Prototype}[http://www.prototypejs.org] 1.6.1
   </select>
   
   <script type="text/javascript" charset="utf-8">
-      new NiceSelect('mySelect', '---');
+      new NiceSelect('mySelect'); // Uses the default "otherOptionValue"
+      // Or:
+      // new NiceSelect('mySelect', {otherOptionValue: '---'});
   </script>
 
 == Credits
 
 Author {Denis Jacquemin}[http://github.com/denisjacquemin].
+Thanks to {theflowmustspice.blogspot.com}[http://theflowmustspice.blogspot.com] for refactoring (http://refactormycode.com/codes/1080-playing-with-dom)
 
 Copyright (c) 2009 Denis Jacquemin, released under the MIT license
