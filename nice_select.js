@@ -7,30 +7,27 @@
  *--------------------------------------------------------------------------*/
  var NiceSelect = Class.create({
       
-      initialize: function(selectElement, otherOptionValue) {
+      initialize: function(selectElement, options) {
+        this.options = Object.extend({otherOptionValue: "---"}, options || {});
         this.selectTag = $(selectElement);
-        this.otherOptionValue = otherOptionValue;
-        this.selectTag.observe('change', this.actOnChange.bind(this));
+        this.selectTag.observe('change', this.actOnChange.bindAsEventListener(this));
       },
       
       actOnChange: function(event) {
-         if (Event.element(event).value == this.otherOptionValue) {
-             var newLabel = prompt("Enter the new name:", "");
-             
-             var alreadyTakenIndex = this.alreadyTaken(newLabel);
-             if ( alreadyTakenIndex == -1 ) {
-                 var newOptionValue = 'new#' + this.selectTag.select('option').length;
-                 var newOption = new Element('option',{'value': newOptionValue });
-                 newOption.innerHTML = newLabel;
-             
-                 this.selectTag.insert({bottom:newOption});
-                 this.selectTag.value = newOptionValue;
-             } else {
-                 alert('Name has already been taken');
-                 this.selectTag.options[alreadyTakenIndex].selected = 'selected';
-             }
-             
-         }
+          var element = event.element();
+          if (!$F(element) == this.options.otherOptionValue) return;
+
+          var newLabel = prompt("Enter the new name:", "");
+          
+          if (this.alreadyTaken(newLabel)) { 
+              alert('Name has already been taken'); 
+              this.selectTag.options[alreadyTakenIndex].selected = 'selected'; 
+              return; 
+          }
+          
+          var newOptionValue = 'new#' + this.selectTag.select('option').length;
+          this.selectTag.insert({bottom: new Element('option', {'value': newOptionValue}).update(newLabel)});
+          this.selectTag.value = newOptionValue;
       },
       
       alreadyTaken: function(label) {
@@ -44,7 +41,8 @@
               index = index+1;
           })
           
-          return taken;
+          if (taken == -1) return false;
+          else return true;
       }
       
     });
